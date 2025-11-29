@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Nexus: Study Planner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="wrapper">
+    <div class="app-title">
+      <div class="logo-dot"></div>
+      <h1>Neon Nexus Study Planner</h1>
+    </div>
+
+    <!-- Calendar -->
+    <section class="calendar panel" aria-label="Monthly calendar">
+      <div class="cal-header">
+        <div class="cal-left">
+          <button class="neon-btn" id="prevBtn" title="Previous month">‹</button>
+          <button class="neon-btn" id="todayBtn" title="Jump to today">Today</button>
+          <button class="neon-btn" id="nextBtn" title="Next month">›</button>
+        </div>
+        <div class="month-title" id="monthTitle">Month YYYY</div>
+        <div class="cal-right">
+          <input id="searchInput" type="search" placeholder="Search tasks" aria-label="Search tasks" />
+        </div>
+      </div>
+
+      <div class="cal-grid">
+        <div class="dow" aria-hidden="true">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+        <div class="days" id="days"></div>
+      </div>
+
+      <div class="drawer">
+        <div class="sub" id="drawerTitle">Select a date to view tasks</div>
+        <div class="tasks-actions" style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="neon-btn" id="addTaskForSelectedBtn" title="Add a task to the selected day">Add Task</button>
+          <button class="neon-btn" id="clearDayBtn" title="Remove all tasks on the selected day" style="border-color: rgba(255,85,119,.4); box-shadow: 0 0 12px rgba(255,85,119,.2);">Clear Selected Day</button>
+          <button class="neon-btn" id="clearAllTasksBtn" title="Remove all tasks in the planner" style="border-color: rgba(255,85,119,.4); box-shadow: 0 0 12px rgba(255,85,119,.2);">Clear All Tasks</button>
+        </div>
+        <div class="tasks" id="taskList"></div>
+      </div>
+    </section>
+
+    <!-- Sidebar: Goals (CRUD + bulk remove) -->
+    <aside class="sidebar">
+      <section class="panel section">
+        <h2>Goals</h2>
+        <div class="input-row">
+          <input id="goalText" type="text" placeholder="New goal" />
+          <input id="goalTags" type="text" placeholder="Tags comma separated" />
+          <textarea id="goalNote" rows="3" placeholder="Short note"></textarea>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="neon-btn" id="addGoalBtn">Add goal</button>
+            <button class="neon-btn" id="clearGoalsBtn" style="border-color: rgba(255,85,119,.4); box-shadow: 0 0 12px rgba(255,85,119,.2);">Remove All Goals</button>
+          </div>
+        </div>
+        <div class="chips" id="activeFilters"></div>
+        <div class="goals" id="goals"></div>
+      </section>
+
+      <section class="panel section">
+        <h2>Quick Add</h2>
+        <div class="input-row">
+          <input id="quickText" type="text" placeholder="Task title" />
+          <textarea id="quickNote" rows="2" placeholder="Notes"></textarea>
+          <button class="neon-btn" id="quickAddBtn">Add to selected date</button>
+        </div>
+        <div class="help-row">
+          <span>Tips</span>
+          <span class="kbd">←</span>
+          <span class="kbd">→</span>
+          <span>switch month</span>
+          <span class="kbd">Esc</span>
+          <span>close modal</span>
+        </div>
+      </section>
+    </aside>
+
+    <div class="statusbar">
+      <div class="stat"><span class="dot c1"></span><span id="statTasks">0 tasks</span></div>
+      <div class="stat"><span class="dot c2"></span><span id="statDone">0 done</span></div>
+      <div class="stat"><span class="dot c3"></span><span id="statGoals">0 goals</span></div>
+    </div>
+  </div>
+
+  <!-- Modal: Add or edit task -->
+  <div class="modal" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle">
+    <div class="modal-bg" data-close></div>
+    <div class="modal-panel">
+      <div class="modal-header">
+        <div class="month-title" id="taskModalTitle">Add task</div>
+        <button class="neon-btn" data-close>Close</button>
+      </div>
+      <div class="modal-body">
+        <input id="taskText" type="text" placeholder="Task title" />
+        <textarea id="taskNote" rows="3" placeholder="Notes"></textarea>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button class="neon-btn" id="saveTaskBtn">Save</button>
+          <button class="neon-btn" id="deleteTaskBtn" style="border-color: rgba(255,85,119,.4); box-shadow: 0 0 12px rgba(255,85,119,.2);">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Saved</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
